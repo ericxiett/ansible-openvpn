@@ -1,0 +1,29 @@
+---
+
+- name: Create vars file
+  template:
+    src: vars.j2
+    dest: /etc/openvpn/easy-rsa/vars_{{ user }}
+
+- name: Copy build client scripts to /opt
+  template:
+    src: build_client.sh.j2
+    dest: /opt/build_client.sh
+    mode: preserve
+
+- name: Execute build script
+  shell: /opt/build_client.sh
+
+- name: Generate header client config
+  template:
+    src: client.ovpn.j2
+    dest: /home/openvpn_clients/{{ user }}_114.118.24.246.ovpn
+
+- name: Copy py script
+  copy:
+    src: files/gen_client_config.py
+    dest: /opt
+    mode: preserve
+
+- name: Add ca cert and key content
+  command: python /opt/gen_client_config.py {{ user }}

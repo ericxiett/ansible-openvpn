@@ -1,0 +1,23 @@
+---
+
+- name: Get start timestamp
+  hosts: deploy
+  connection: local
+  tasks:
+    - set_fact:
+        starttime: "{{ ansible_date_time }}"
+
+- name: Build client keys and config
+  hosts: deploy
+  connection: local
+  roles:
+    - build_client
+
+- name: Inform the installer
+  hosts: deploy
+  connection: local
+  tasks:
+    - debug:
+        msg: >-
+          The deploy started at {{ hostvars.deploy.starttime.time }},
+          ended at {{ ansible_date_time.time }}

@@ -10,16 +10,12 @@
 - name: Install OpenVPN
   hosts: deploy
   connection: local
-  #hosts: vpn
-  #remote_user: root
   roles:
     - install_openvpn
 
 - name: Generating Keys and Certificates
   hosts: deploy
   connection: local
-  #hosts: vpn
-  #remote_user: root
   roles:
     - gen_keys_certs
 

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -x
+
+cd /etc/openvpn/easy-rsa
+
+source ./vars_{{ user }}
+
+./build_key --batch {{ user }}
