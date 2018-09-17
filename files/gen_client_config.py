@@ -12,18 +12,18 @@ def main():
     user = sys.argv[1]
     conf_file = CLIENTS_PATH + user + '_114.118.24.246.ovpn'
     with open(KEYS_PATH+'ca.crt', 'r') as f:
-        with open(conf_file, 'w+') as fconf:
+        with open(conf_file, 'a+') as fconf:
             fconf.write('<ca>\n')
             for line in f.readlines():
                 fconf.write(line)
-            fconf.write('/<ca>')
+            fconf.write('</ca>\n')
 
     index = 0
     start = 0
     with open(KEYS_PATH+user+'.crt', 'r') as f:
-        with open(conf_file, 'w+') as fconf:
+        with open(conf_file, 'a+') as fconf:
             fconf.write('\n')
-            fconf.write('<cert>')
+            fconf.write('<cert>\n')
             lines = []
             for line in f.readlines():
                 lines.append(line)
@@ -33,15 +33,15 @@ def main():
 
             for li in lines[start:]:
                 fconf.write(li)
-            fconf.write('/<cert>')
+            fconf.write('</cert>\n')
 
     with open(KEYS_PATH+user+'.key', 'r') as f:
-        with open(conf_file, 'w+') as fconf:
+        with open(conf_file, 'a+') as fconf:
             fconf.write('\n')
-            fconf.write('<key>')
+            fconf.write('<key>\n')
             for line in f.readlines():
                 fconf.write(line)
-            fconf.write('/<key>')
+            fconf.write('</key>\n')
             fconf.write('\n')
 
 

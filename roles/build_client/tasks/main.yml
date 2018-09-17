@@ -12,7 +12,12 @@
     mode: preserve
 
 - name: Execute build script
-  shell: /opt/build_client.sh
+  shell: chmod +x /opt/build_client.sh; /opt/build_client.sh
+
+- name: Create /home/openvpn_clients directory
+  file:
+    name: /home/openvpn_clients
+    state: directory
 
 - name: Generate header client config
   template:
