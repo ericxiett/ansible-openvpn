@@ -10,5 +10,24 @@
     src: vars.j2
     dest: /etc/openvpn/easy-rsa/vars
 
+- name: Copy bootstrap script
+  copy:
+    src: files/{{ item }}
+    dest: /opt
+    mode: 0644
+  with_items:
+    - gen_server_keys_certs.sh
+    - vpn_env.sh
+
 - name: Generate server keys and certs
-  script:
+  script: /opt/gen_server_keys_certs.sh
+
+- name: Routing
+  script: /opt/vpn_env.sh
+
+- name: Start openvpn service
+  service:
+    name: openvpn@server
+    enabled: yes
+    state: started
+

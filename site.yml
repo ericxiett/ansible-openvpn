@@ -8,40 +8,20 @@
         starttime: "{{ ansible_date_time }}"
 
 - name: Install OpenVPN
-  hosts: vpn
-  remote_user: root
+  hosts: deploy
+  connection: local
+  #hosts: vpn
+  #remote_user: root
   roles:
     - install_openvpn
 
 - name: Generating Keys and Certificates
-  hosts: vpn
-  remote_user: root
+  hosts: deploy
+  connection: local
+  #hosts: vpn
+  #remote_user: root
   roles:
     - gen_keys_certs
-
-- name: Setup ironic server
-  hosts: deploy
-  connection: local
-  vars_files:
-    - "vars/env.yml"
-  roles:
-    - ironic
-
-- name: Setup ironic-inspector server
-  hosts: deploy
-  connection: local
-  vars_files:
-    - "vars/env.yml"
-  roles:
-    - ironic-inspector
-
-- name: Setup arobot server
-  hosts: deploy
-  connection: local
-  vars_files:
-    - "vars/env.yml"
-  roles:
-    - arobot
 
 - name: Inform the installer
   hosts: deploy

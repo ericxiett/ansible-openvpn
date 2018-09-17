@@ -1,0 +1,2 @@
+deploy ansible_host=127.0.0.1 ansible_python_interpreter=python
+vpn ansible_host=172.23.61.14 ansible_ssh_pass=Lc13yfwpW
