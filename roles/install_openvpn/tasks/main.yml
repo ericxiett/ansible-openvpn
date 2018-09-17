@@ -1,0 +1,40 @@
+---
+
+- name: Install epel
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install openvpn and wget
+  yum:
+    name: '{{ item }}'
+    state: latest
+  with_items:
+    - openvpn
+    - wget
+
+- name: Download easy-rsa for gen ca/keys/certs
+  get_url:
+    url: https://github.com/OpenVPN/easy-rsa-old/archive/2.3.3.tar.gz
+    dest: /tmp/easyrsa
+
+- name: Untar easyrsa
+  unarchive:
+    src: /tmp/easyrsa
+    dest: /tmp
+
+- name: Create easy-rsa directory
+  file:
+    name: /etc/openvpn/easy-rsa
+    state: directory
+
+- name: Copy rsa files to easy-rsa
+  copy:
+    src: /tmp/easy-rsa-old-2.3.3/easy-rsa/2.0/
+    dest: /etc/openvpn/easy-rsa
+    remote_src: yes
+
+- name: Generate server.conf
+  template:
+    src: server.conf.j2
+    dest: /etc/openvpn/server.conf

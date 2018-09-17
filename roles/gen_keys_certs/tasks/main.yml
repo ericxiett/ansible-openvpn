@@ -1,0 +1,14 @@
+---
+
+- name: Create keys directory
+  file:
+    name: /etc/openvpn/easy-rsa/keys
+    state: directory
+
+- name: Generate vars variables file
+  template:
+    src: vars.j2
+    dest: /etc/openvpn/easy-rsa/vars
+
+- name: Generate server keys and certs
+  script:
