@@ -14,7 +14,7 @@
   copy:
     src: files/{{ item }}
     dest: /opt
-    mode: 0644
+    mode: preserve
   with_items:
     - gen_server_keys_certs.sh
     - vpn_env.sh

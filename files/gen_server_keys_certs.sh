@@ -8,7 +8,7 @@ source ./vars
 
 ./clean-all
 
-./build-ca << EOF
+./build-ca <<EOF
 CN
 SD
 JN
@@ -19,19 +19,7 @@ server
 inspur@inspur.com
 EOF
 
-./build-key-server server << EOF
-CN
-SD
-JN
-Inspur
-cloud
-inspur
-server
-inspur@inspur.com
-
-y
-y
-EOF
+./build-key-server --batch server
 
 ./build-dh
 
